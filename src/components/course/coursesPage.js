@@ -35,12 +35,12 @@ class CoursesPage extends Component {
         return (
             <div className="jumbotron">
                 <h1>Courses</h1>
+                {this.props.courses.map((course, index) => this.courseRow(course, index))}
                 <AddCourseForm
                     course={this.state.course.title}
                     onChangeHandler={this.onChangeHandler}
                     onClickHandler={this.onClickHandler}
                 />
-                {this.props.courses.map((course, index) => this.courseRow(course, index))}
             </div>
         );
     }
