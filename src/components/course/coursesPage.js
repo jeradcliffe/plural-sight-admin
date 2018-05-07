@@ -24,7 +24,7 @@ class CoursesPage extends Component {
     };
 
     onClickHandler = () => {
-        this.props.dispatch(createCourse(this.state.course))
+        this.props.createCourse(this.state.course)
     };
 
     courseRow = (course, index) => {
@@ -52,15 +52,12 @@ function mapStateToProps(state) {
     }
 }
 
-// function mapDispatchToProps(dispatch) {
-//     return {
-//         createCourse: () => {dispatch(createCourse())}
-//     }
-// }
+const mapDispatchToProps = {
+    createCourse
+};
 
 CoursesPage.propTypes = {
     courses: PropTypes.array.isRequired,
-    dispatch: PropTypes.func.isRequired
 };
 
-export default connect(mapStateToProps)(CoursesPage);
+export default connect(mapStateToProps, mapDispatchToProps)(CoursesPage);
