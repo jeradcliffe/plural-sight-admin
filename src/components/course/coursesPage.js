@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {loadCourses} from "../../actions/courseActions";
+import CourseList from "./courseList";
 
 class CoursesPage extends Component {
     constructor(props) {
@@ -14,16 +15,11 @@ class CoursesPage extends Component {
         };
     }
 
-    courseRow = (course, index) => {
-        return <div key={index}>{course.title}</div>
-    };
-
     render() {
         return (
             <div className="jumbotron">
                 <h1>Courses</h1>
-                {this.props.courses.map((course, index) => this.courseRow(course, index))}
-
+                <CourseList courses={this.props.courses}/>
             </div>
         );
     }
