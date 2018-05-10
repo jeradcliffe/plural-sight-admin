@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {createCourse} from "../../actions/courseActions";
+import {loadCourses} from "../../actions/courseActions";
 
 class CoursesPage extends Component {
     constructor(props) {
@@ -36,7 +36,7 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = {
-    createCourse
+    loadCourses
 };
 
 CoursesPage.propTypes = {
