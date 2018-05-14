@@ -41,11 +41,11 @@ class AuthorApi {
             setTimeout(() => {
                 // Simulate server-side validation
                 const minAuthorNameLength = 3;
-                if (author.firstName.length < minAuthorNameLength) {
+                if (author.firstName.courseLength < minAuthorNameLength) {
                     reject(`First Name must be at least ${minAuthorNameLength} characters.`);
                 }
 
-                if (author.lastName.length < minAuthorNameLength) {
+                if (author.lastName.courseLength < minAuthorNameLength) {
                     reject(`Last Name must be at least ${minAuthorNameLength} characters.`);
                 }
 

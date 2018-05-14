@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import * as courseActions from '../../actions/courseActions';
-import * as authorActions from '../../actions/authorActions';
+import {saveCourse} from '../../actions/courseActions';
 import CourseForm from "./courseForm";
 
 class ManageCoursePage extends Component {
@@ -19,12 +18,12 @@ class ManageCoursePage extends Component {
       const field = event.target.name;
       let course = Object.assign({}, this.state.course);
       course[field] = event.target.value;
-      return this.setState({course: course});
+      this.setState({course: course});
     };
 
     onSaveHandler = (event) => {
         event.preventDefault();
-        this.props.courseActions.saveCourse(this.state.course);
+        this.props.saveCourse(this.state.course);
     };
 
     render() {
@@ -33,7 +32,7 @@ class ManageCoursePage extends Component {
                 <CourseForm
                     course={this.state.course}
                     allAuthors={this.props.authors}
-                    onSave={this.onSaveHandler}
+                    onSave={(e) => this.onSaveHandler(e)}
                     onChange={this.onChangeHandler}
                     errors={this.state.error}
                 />
@@ -48,6 +47,15 @@ ManageCoursePage.propTypes = {
 };
 
 function mapStateToProps(state) {
+    const mockCourse = {
+        id: "",
+        title: "",
+        watchHref: "",
+        authorId: "",
+        courseLength: "",
+        category: ""
+    };
+
     const authorsFormattedForDropdown = state.authors.map(author => {
         return {
             value: author.id,
@@ -56,14 +64,13 @@ function mapStateToProps(state) {
     });
 
     return {
-        // courses: courses,
+        course: mockCourse,
         authors: authorsFormattedForDropdown
     };
 }
 
 const mapDispatchToProps = {
-    courseActions,
-    authorActions
+    saveCourse
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ManageCoursePage);

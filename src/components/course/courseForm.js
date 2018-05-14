@@ -5,7 +5,7 @@ import SelectInput from "../common/selectInput";
 
 const CourseForm = ({course, allAuthors, onSave, onChange, loading, errors}) => {
     return (
-        <form>
+        <form onSubmit={onSave}>
             <h1>Manage Course</h1>
 
             <TextInput
@@ -32,18 +32,17 @@ const CourseForm = ({course, allAuthors, onSave, onChange, loading, errors}) => 
                 error={errors ? errors.category: ""}/>
 
             <TextInput
-                name={"length"}
-                label={"Length"}
-                value={course.length}
+                name={"courseLength"}
+                label={"Course Length"}
+                value={course.courseLength}
                 onChange={onChange}
-                error={errors ? errors.length : ""}/>
+                error={errors ? errors.courseLength : ""}/>
 
             <input
                 type="submit"
                 disabled={loading}
                 value={loading ? "Saving..." : "Save"}
-                className="btn btn-primary"
-                onClick={onSave}/>
+                className="btn btn-primary"/>
         </form>
     );
 };
@@ -55,6 +54,6 @@ CourseForm.propTypes = {
     onChange: PropTypes.func.isRequired,
     loading: PropTypes.bool,
     errors: PropTypes.object
-}
+};
 
 export default CourseForm;

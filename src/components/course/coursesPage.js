@@ -1,30 +1,21 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {loadCourses} from "../../actions/courseActions";
 import CourseList from "./courseList";
+import Link from "react-router-dom/es/Link";
 
 class CoursesPage extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            course: {
-                title: ""
-            }
-        };
-    }
-
     render() {
         return (
             <div className="jumbotron">
                 <h1>Courses</h1>
-                <input
-                    type="submit"
-                    value="Add Course"
-                    className="btn btn-primary"
-                    onClick={this.redirectToAddCoursePage}
-                />
+                <Link to="/course">
+                    <input
+                        type="submit"
+                        value="Add Course"
+                        className="btn btn-primary"
+                    />
+                </Link>
                 <CourseList courses={this.props.courses}/>
             </div>
         );
@@ -38,7 +29,7 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = {
-    loadCourses
+
 };
 
 CoursesPage.propTypes = {
