@@ -4,12 +4,14 @@ import {connect} from 'react-redux';
 import {saveCourseAction} from '../../actions/courseActions';
 import {loadAuthorsActions} from "../../actions/authorActions";
 import CourseForm from "./courseForm";
+import {Redirect} from "react-router-dom";
 
 class ManageCoursePage extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
+            redirect: false,
             course: Object.assign({}, props.course),
             errors: {}
         }
@@ -20,18 +22,25 @@ class ManageCoursePage extends Component {
     }
 
     onChangeHandler = (event) => {
-      const field = event.target.name;
-      let course = Object.assign({}, this.state.course);
-      course[field] = event.target.value;
-      this.setState({course: course});
+        const field = event.target.name;
+        let course = Object.assign({}, this.state.course);
+        course[field] = event.target.value;
+        this.setState({course: course});
     };
 
     onSaveHandler = (event) => {
         event.preventDefault();
         this.props.saveCourseAction(this.state.course);
+        this.setState({redirect: true});
     };
 
     render() {
+        const {redirect} = this.state;
+
+        if(redirect) {
+            return <Redirect to="/courses"/>
+        }
+
         return (
             <div>
                 <CourseForm
