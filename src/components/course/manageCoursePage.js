@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
-import {saveCourse} from '../../actions/courseActions';
+import {saveCourseAction} from '../../actions/courseActions';
+import {loadAuthorsActions} from "../../actions/authorActions";
 import CourseForm from "./courseForm";
 
 class ManageCoursePage extends Component {
@@ -14,6 +15,10 @@ class ManageCoursePage extends Component {
         }
     }
 
+    componentWillMount() {
+        this.props.loadAuthorsActions()
+    }
+
     onChangeHandler = (event) => {
       const field = event.target.name;
       let course = Object.assign({}, this.state.course);
@@ -23,7 +28,7 @@ class ManageCoursePage extends Component {
 
     onSaveHandler = (event) => {
         event.preventDefault();
-        this.props.saveCourse(this.state.course);
+        this.props.saveCourseAction(this.state.course);
     };
 
     render() {
@@ -70,7 +75,8 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = {
-    saveCourse
+    saveCourseAction,
+    loadAuthorsActions
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ManageCoursePage);

@@ -3,8 +3,13 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import CourseList from "./courseList";
 import Link from "react-router-dom/es/Link";
+import {loadCoursesAction} from "../../actions/courseActions";
 
 class CoursesPage extends Component {
+    componentWillMount() {
+        this.props.loadCoursesAction();
+    }
+
     render() {
         return (
             <div className="jumbotron">
@@ -29,7 +34,7 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = {
-
+    loadCoursesAction
 };
 
 CoursesPage.propTypes = {
