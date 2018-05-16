@@ -22,7 +22,7 @@ export function loadCourseSuccessAction(courses) {
 
 export function updateCourseSuccessAction(course) {
     return {
-        types: types.UPDATE_COURSES_SUCCESS,
+        type: types.UPDATE_COURSES_SUCCESS,
         course
     }
 }

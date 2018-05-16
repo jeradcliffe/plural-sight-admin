@@ -9,16 +9,29 @@ import {Redirect} from "react-router-dom";
 class ManageCoursePage extends Component {
     constructor(props) {
         super(props);
-
         this.state = {
             redirect: false,
-            course: Object.assign({}, props.course),
+            course: {
+                id: "",
+                title: "",
+                watchHref: "",
+                authorId: "",
+                courseLength: "",
+                category: ""
+            },
             errors: {}
         }
     }
 
     componentWillMount() {
-        this.props.loadAuthorsActions()
+        const {match: {params}, courses, loadAuthorsActions} = this.props;
+
+        loadAuthorsActions();
+
+        if (params.id) {
+            let selectedCourse = courses.filter(course => course.id === params.id);
+            this.setState({course: selectedCourse[0]});
+        }
     }
 
     onChangeHandler = (event) => {
@@ -35,22 +48,20 @@ class ManageCoursePage extends Component {
     };
 
     render() {
-        const {redirect} = this.state;
-        const {match: {params}} = this.props;
+        const {redirect, error} = this.state;
 
-        if(redirect) {
+        if (redirect) {
             return <Redirect to="/courses"/>
         }
-        console.log(this.props);
+
         return (
             <div>
-                ID: {params.id}
                 <CourseForm
                     course={this.state.course}
                     allAuthors={this.props.authors}
                     onSave={(e) => this.onSaveHandler(e)}
                     onChange={this.onChangeHandler}
-                    errors={this.state.error}
+                    errors={error}
                 />
             </div>
         );
@@ -58,29 +69,19 @@ class ManageCoursePage extends Component {
 }
 
 ManageCoursePage.propTypes = {
-    course: PropTypes.object.isRequired,
+    course: PropTypes.object,
     authors: PropTypes.array.isRequired
 };
 
 function mapStateToProps(state) {
-    const mockCourse = {
-        id: "",
-        title: "",
-        watchHref: "",
-        authorId: "",
-        courseLength: "",
-        category: ""
-    };
-
     const authorsFormattedForDropdown = state.authors.map(author => {
         return {
             value: author.id,
             text: author.firstName + " " + author.lastName
         };
     });
-
     return {
-        course: mockCourse,
+        courses: state.courses,
         authors: authorsFormattedForDropdown
     };
 }
