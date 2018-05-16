@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {saveCourseAction} from '../../actions/courseActions';
 import {loadAuthorsActions} from "../../actions/authorActions";
 import CourseForm from "./courseForm";
-import {Redirect} from "react-router-dom";
+import {withRouter} from "react-router-dom";
 
 class ManageCoursePage extends Component {
     constructor(props) {
@@ -44,15 +44,11 @@ class ManageCoursePage extends Component {
     onSaveHandler = (event) => {
         event.preventDefault();
         this.props.saveCourseAction(this.state.course);
-        this.setState({redirect: true});
+        this.props.history.push('/courses');
     };
 
     render() {
-        const {redirect, error} = this.state;
-
-        if (redirect) {
-            return <Redirect to="/courses"/>
-        }
+        const {error} = this.state;
 
         return (
             <div>
@@ -91,4 +87,4 @@ const mapDispatchToProps = {
     loadAuthorsActions
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ManageCoursePage);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ManageCoursePage));
