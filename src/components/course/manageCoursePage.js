@@ -36,13 +36,15 @@ class ManageCoursePage extends Component {
 
     render() {
         const {redirect} = this.state;
+        const {match: {params}} = this.props;
 
         if(redirect) {
             return <Redirect to="/courses"/>
         }
-
+        console.log(this.props);
         return (
             <div>
+                ID: {params.id}
                 <CourseForm
                     course={this.state.course}
                     allAuthors={this.props.authors}

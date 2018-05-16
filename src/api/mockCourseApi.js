@@ -64,6 +64,21 @@ class CourseApi {
         });
     }
 
+    static getCourse(courseId) {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                let course;
+                if (courseId) {
+                    const courseIndex = courses.findIndex(element => element.id === courseId);
+                    course = courses[courseIndex];
+                } else {
+                    reject(`Course with id: ${courseId} was not found.`)
+                }
+                resolve(course);
+            }, delay);
+        });
+    }
+
     static saveCourse(course) {
         course = Object.assign({}, course); // to avoid manipulating object passed in.
         return new Promise((resolve, reject) => {
