@@ -1,6 +1,7 @@
 import {call, put, takeEvery} from 'redux-saga/effects';
 import * as types from "../actions/actionTypes";
 import AuthorApi from "../api/mockAuthorApi";
+import {loadAuthorsSuccessAction} from "../actions/authorActions";
 
 export function* watchLoadAuthors() {
     yield takeEvery(types.LOAD_AUTHORS, loadAuthors)
@@ -9,7 +10,7 @@ export function* watchLoadAuthors() {
 function* loadAuthors() {
     try {
         const authors = yield call(AuthorApi.getAllAuthors);
-        yield put({type: types.LOAD_AUTHORS_SUCCESS, authors})
+        yield put(loadAuthorsSuccessAction(authors))
     } catch (e) {
         console.log(e.type, e.message)
     }

@@ -5,3 +5,10 @@ export function loadAuthorsActions() {
         type: types.LOAD_AUTHORS
     }
 }
+
+export function loadAuthorsSuccessAction(authors) {
+    return {
+        type: types.LOAD_AUTHORS_SUCCESS,
+        authors
+    }
+}

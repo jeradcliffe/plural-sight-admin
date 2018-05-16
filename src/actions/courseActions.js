@@ -12,3 +12,24 @@ export function loadCoursesAction() {
         type: types.LOAD_COURSES
     }
 }
+
+export function loadCourseSuccessAction(courses) {
+    return {
+        type: types.LOAD_COURSES_SUCCESS,
+        courses
+    }
+}
+
+export function updateCourseSuccessAction(course) {
+    return {
+        types: types.UPDATE_COURSES_SUCCESS,
+        course
+    }
+}
+
+export function saveCourseSuccessAction(course) {
+    return {
+        type: types.SAVE_COURSE_SUCCESS,
+        course
+    }
+}
